@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://tp76qs8bq2h2"]
+[gd_scene load_steps=54 format=3 uid="uid://tp76qs8bq2h2"]
 
 [ext_resource type="Script" path="res://Character/player.gd" id="1_14ej3"]
 [ext_resource type="Texture2D" uid="uid://crnjxvsjp1owp" path="res://Sprites/Knight Sprites/Colour1/Outline/120x80_PNGSheets/_Idle.png" id="2_1ysr2"]
@@ -430,10 +430,10 @@ states/Move/node = SubResource("AnimationNodeBlendSpace1D_0nq8s")
 states/Move/position = Vector2(395, 100)
 transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_47qfr")]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_wgg5y"]
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_14ej3")
+speed = null
+jump_velocity = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -461,16 +461,16 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3ejqu")
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_wgg5y")
 parameters/Move/blend_position = 0
 
-[node name="CharacterStateMachine" type="Node" parent="."]
+[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("7_5wvwi")
+current_state = NodePath("Ground")
+
+[node name="Ground" type="Node" parent="CharacterStateMachine"]
+script = ExtResource("8_8bjwx")
 
 [node name="Air" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("8_uxd14")
-
-[node name="Ground" type="Node" parent="."]
-script = ExtResource("8_8bjwx")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
