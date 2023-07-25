@@ -2,13 +2,14 @@ extends CharacterBody2D
 
 
 @export var speed : float = 200.0
-@export var jump_velocity : float = -220.0
+
 
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var state_machine : CharacterStateMachine = $CharacterStateMachine
 
-
+enum state {RUNNING, IDLE, JUMPING, LANDING, FALLING}
+var anim_state = state.IDLE
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var animation_locked : bool = false
@@ -30,8 +31,7 @@ func _physics_process(delta):
 			was_in_air = false 
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		jump()
+
 
 
 	# Get the input direction and handle the movement/deceleration.
@@ -58,20 +58,11 @@ func update_facing_direction():
 	elif direction.x < 0:
 		sprite.flip_h = true
 		
-func jump():
-	velocity.y = jump_velocity  
-	# animated_sprite.play("jump_start")
-	animation_locked = true
+
 
 func land():
 	# animated_sprite.play("jump_end")
 	animation_locked = true
 
 
-func _on_animated_sprite_2d_animation_finished():
-	# if(animated_sprite.animation == "jump_end"):
-		animation_locked = false
-	# elif(animated_sprite.animation == "jump_start"):
-		animation_locked = false
-			
 

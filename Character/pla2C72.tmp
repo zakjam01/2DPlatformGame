@@ -579,15 +579,16 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k7a0w"]
-advance_mode = 0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2v8ju"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6p7ct"]
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3ejqu"]
 states/Jump_fall/node = SubResource("AnimationNodeAnimation_n7vni")
-states/Jump_fall/position = Vector2(503, 77)
+states/Jump_fall/position = Vector2(487, 73)
 states/Move/node = SubResource("AnimationNodeBlendSpace1D_0nq8s")
 states/Move/position = Vector2(311, 165)
 states/Start/position = Vector2(127, 165)
@@ -596,7 +597,6 @@ states/jump_end/position = Vector2(503, 165)
 states/jump_start/node = SubResource("AnimationNodeAnimation_ex58v")
 states/jump_start/position = Vector2(311, 77)
 transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_47qfr"), "Move", "jump_start", SubResource("AnimationNodeStateMachineTransition_kc4n2"), "jump_end", "Move", SubResource("AnimationNodeStateMachineTransition_onwe1"), "jump_start", "jump_end", SubResource("AnimationNodeStateMachineTransition_k7a0w"), "jump_start", "Jump_fall", SubResource("AnimationNodeStateMachineTransition_2v8ju"), "Jump_fall", "jump_end", SubResource("AnimationNodeStateMachineTransition_6p7ct")]
-graph_offset = Vector2(-20, 28)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_14ej3")
@@ -641,6 +641,8 @@ jump_animation = "jump_start"
 
 [node name="Air" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("8_uxd14")
+landing_animation = null
+can_move = null
 
 [node name="Landing" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state")]
 script = ExtResource("10_2x1uq")

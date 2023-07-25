@@ -1,11 +1,18 @@
 extends State
 
+class_name AirState
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@export var landing_state : State  
+@export var landing_animation : String = "Landing"
+
+var has_jump_fell = false
+
+func state_process(delta):
+	if(character.is_on_floor()):
+		next_state = landing_state
+
+func on_exit():
+	if(next_state == landing_state):
+		has_jump_fell = false
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
